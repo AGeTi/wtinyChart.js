@@ -149,12 +149,18 @@ Pie.prototype.addEvent = function(canvas, ctx) {
 	var nowdeg = -Math.PI / 2;
 	var circleCenter = this.circleCenter;
 	var radius = this.radius;
+	var display=document.createElement('div');
+	display.style.padding="10px";
+	display.style.color="white";
+	display.style.backgroundColor="rgba(0,0,0,0.45)";
+	display.style.display="none";
+	document.body.appendChild(display);
+
 	canvas.addEventListener('mousemove', function(event) {
 		var pos = getEventPosition(event);
 		var j;
 		ctx.clearRect(0, 0, 9999, 9999);
 		for (var i = 0; i <= this.deg.length - 1; i++) {
-			//ctx.fillStyle = this.color[i]
 			ctx.strokeStyle = this.color[i]
 			ctx.beginPath();
 			ctx.moveTo(circleCenter, circleCenter)
@@ -168,7 +174,6 @@ Pie.prototype.addEvent = function(canvas, ctx) {
 				ctx.clearRect(0, 0, 9999, 9999);
 				j = i;
 				nowdeg = -Math.PI / 2;
-				//	console.log("d")
 				for (var i = 0; i <= this.deg.length - 1; i++) {
 					ctx.strokeStyle = this.color[i]
 					ctx.beginPath();
@@ -179,7 +184,6 @@ Pie.prototype.addEvent = function(canvas, ctx) {
 						ctx.arc(circleCenter, circleCenter, radius + 20, nowdeg, this.deg[i] + nowdeg);
 					}
 					nowdeg = this.deg[i] + nowdeg;
-					//ctx.stroke();
 					ctx.fillStyle = this.color[i];
 					ctx.globalAlpha = 0.4;
 					ctx.fill()
@@ -196,26 +200,35 @@ Pie.prototype.addEvent = function(canvas, ctx) {
 		}
 		var distance2 = Math.pow(pos.x - circleCenter, 2) + Math.pow(pos.y - circleCenter, 2);
 		if (this.message && distance2 < Math.pow(radius - 5, 2)) {
-			ctx.globalAlpha = 0.4;
-			ctx.fillStyle = 'black';
-			ctx.fillRect(pos.x + 20, pos.y + 20, circleCenter / 1.6, circleCenter / 2);
-			ctx.font = "15pt Calibri";
-			ctx.globalAlpha = 1;
-			ctx.fillStyle = 'white';
+			//ctx.globalAlpha = 0.4;
+			//ctx.fillStyle = 'black';
+			//ctx.fillRect(pos.x + 20, pos.y + 20, circleCenter / 1.6, circleCenter / 2);
+			//ctx.font = "15pt Calibri";
+			//ctx.globalAlpha = 1;
+			//ctx.fillStyle = 'white';
 			for (var i = 0; i < this.mge.length; i++) {
 				var name = this.mge[i].replace(/{{name}}/, this.data[j].name);
+				display.style.display="block";
+				display.style. position="absolute";
+				display.style.left=event.clientX+20+"px";
+				display.style.top=event.clientY+20+"px";
+				/*
 				if (!name.match('{{value}}')) {
 					ctx.fillText(name, pos.x + 40, pos.y + 40 + (i) * 20);
 				}
-
+				*/
 				var value = name.replace(/{{value}}/, this.data[j].value);
+				/*
 				if (!value.match('{{value}}') || !value.match('{{percent}}')) {
-					//console.log(value)
 					ctx.fillText(value, pos.x + 40, pos.y + 40 + (i) * 20);
 				}
-				//var percent=value.replace(/{{percent}}/,(this.percent[j]*100).toFixed(2)+"%")
-				//ctx.fillText(percent,pos.x+40,pos.y+40+i*20)
+				*/
+				var message=this.message.replace(/{{name}}/, this.data[j].name).replace(/{{value}}/, this.data[j].value);
+				display.innerHTML=message;
 			}
+		}
+		else{
+			display.style.display="none";
 		}
 		event.stopPropagation();
 	}.bind(this));
@@ -231,7 +244,6 @@ Pie.prototype.addEvent = function(canvas, ctx) {
 			ctx.moveTo(circleCenter, circleCenter)
 			ctx.arc(circleCenter, circleCenter, radius, nowdeg, this.deg[i] + nowdeg);
 			nowdeg = this.deg[i] + nowdeg;
-			//	ctx.stroke()
 			ctx.globalAlpha = 0.4;
 			ctx.fill()
 			if (this.type == 'ring') {
@@ -385,6 +397,13 @@ Radar.prototype.draw = function() {
 	return this;
 }
 Radar.prototype.addEvent = function(canvas, ctx) {
+	var display=document.createElement('div');
+	display.style.padding="10px";
+	display.style.color="white";
+	display.style.backgroundColor="rgba(0,0,0,0.45)";
+	display.style.display="none";
+	document.body.appendChild(display);
+
 	canvas.addEventListener('mousemove', function(event) {
 		ctx.clearRect(0, 0, 9999, 9999)
 		var pos = getEventPosition(event);
@@ -402,8 +421,6 @@ Radar.prototype.addEvent = function(canvas, ctx) {
 		ctx.translate(circleCenter, circleCenter);
 		for (var j = this.levels; j > 0; j--) {
 			var distance = this.radius * (5 * this.distance - (j - 1) * this.distance) / (5 * this.distance);
-			//	console.log(5*this.distance-(j-1)*this.distance+","+distance+","+j)
-
 			for (var i = 0; i < this.index.length; i++) {
 				ctx.beginPath();
 				ctx.globalAlpha = 0.4;
@@ -437,8 +454,6 @@ Radar.prototype.addEvent = function(canvas, ctx) {
 				x: xt,
 				y: yt
 			});
-			//console.log(points[0])
-			//console.log(rad+","+x)
 			if (rad == 0 || (rad > 84 && rad < 96)) {
 				ctx.textAlign = "center"
 			} else if (rad < 180) {
@@ -473,7 +488,6 @@ Radar.prototype.addEvent = function(canvas, ctx) {
 		var distance2 = points.map(function(point) {
 			index++;
 			return Math.pow(pos.x - point.x, 2) + Math.pow(pos.y - point.y, 2)
-
 		})
 		var mindiatnce = Math.min.apply(null, distance2);
 		//console.log(mindiatnce)
@@ -496,15 +510,19 @@ Radar.prototype.addEvent = function(canvas, ctx) {
 			ctx.fillStyle = this.color[i];
 			ctx.fill();
 		}
-		ctx.globalAlpha = 0.4;
-		ctx.fillStyle = 'black';
-		ctx.fillRect(pos.x + 20, pos.y + 20, canvasWidth / 3, canvasHeight / 4);
-		//ctx.font = "15pt Calibri";
-		ctx.globalAlpha = 1;
-		ctx.fillStyle = 'white';
-		ctx.fillText("message", pos.x + 80, pos.y + 40);
-		//console.log(index)
+		/*display message*/
+
+		display.style.display="block";
+		display.style. position="absolute";
+		display.style.left=event.clientX+20+"px";
+		display.style.top=event.clientY+20+"px";
+		var message=this.message.replace(/{{index}}/, this.index[index]);
+		for(var i=0;i<this.data.length;i++){
+			message=message.replace(/{{name}}/,this.data[i]['name']).replace(/{{value}}/,this.data[i]['value'][index]);
+		}
+		display.innerHTML=message;
 	}.bind(this));
+
 	canvas.addEventListener('mouseout', function() {
 		var ctx = this.context;
 		var canvas = ctx.canvas;
@@ -574,14 +592,18 @@ Radar.prototype.addEvent = function(canvas, ctx) {
 
 			}
 			ctx.closePath()
-				//ctx.stroke()
 			ctx.fillStyle = this.color[j];
 			ctx.fill();
 		}
+		display.style.display="none";
 	}.bind(this))
 }
 Radar.prototype.configMessage=function (argument) {
-	// body...
+	var message=this.message
+	for(var i=0;i<this.data.length-1;i++){
+		this.message=this.message+"<br/>"+message;
+	}
+	this.message="{{index}}<br/>"+this.message;
 }
 
 
@@ -594,6 +616,12 @@ function Bar(context,type) {
 Bar.prototype = inherit(Element.prototype);
 Bar.constructor = Bar;
 Bar.prototype.addEvent = function(canvas, ctx) {
+	var display=document.createElement('div');
+	display.style.padding="10px";
+	display.style.color="white";
+	display.style.backgroundColor="rgba(0,0,0,0.45)";
+	display.style.display="none";
+	document.body.appendChild(display);
 	canvas.addEventListener('mousemove', function(event) {
 		var pos = getEventPosition(event);
 		ctx.clearRect(0, 0, 9999, 9999)
@@ -630,15 +658,21 @@ Bar.prototype.addEvent = function(canvas, ctx) {
 				ctx.closePath();
 				ctx.fillStyle = "black"
 				ctx.fill();
+				/*dispaly message*/
+				display.style.display="block";
+				display.style. position="absolute";
+				display.style.left=event.clientX+20+"px";
+				display.style.top=event.clientY+20+"px";
+				var message=this.message.replace(/{{xAxis}}/,this.xAxis[j]);//.replace(/{{value}}/,this.data[j]);
+				for(var x=0;x<this.data.length;x++){
+					message=message.replace(/{{value}}/,this.data[x]['value'][j]);
+				}
 
-				ctx.globalAlpha = 0.4;
-				ctx.fillStyle = 'black';
-				ctx.fillRect(pos.x + 20, pos.y + 20, distance * 2, distance * 1);
-				//ctx.font = "15pt Calibri";
-				ctx.globalAlpha = 1;
-				ctx.fillStyle = 'white';
-				ctx.fillText("message", pos.x + 60, pos.y + 40);
-
+				display.innerHTML=message;
+				break;
+			}
+			else {
+				display.style.display="none";
 			}
 			ctx.fillStyle = "rgba(3,3,3,0)"
 			ctx.fill();
@@ -662,7 +696,6 @@ Bar.prototype.addEvent = function(canvas, ctx) {
 			ctx.stroke()
 		}
 
-		//	console.log(distance)
 		/*draw xaxis*/
 		ctx.strokeStyle = "black";
 		for (var i = 0; i < this.xAxis.length; i++) {
@@ -675,7 +708,6 @@ Bar.prototype.addEvent = function(canvas, ctx) {
 			var value = this.xAxis[i];
 			ctx.fillText(value, 60 + (i + 1) * distance - distance / 2, canvasHeight - 40)
 			ctx.lineTo(60 + (i + 1) * distance, canvasHeight - 60);
-
 			ctx.stroke()
 			ctx.globalAlpha = 0.2;
 			ctx.lineTo(60 + (i + 1) * distance, 10);
@@ -806,7 +838,28 @@ Bar.prototype.draw = function() {
 	return this;
 }
 Bar.prototype.configMessage=function (argument) {
-	
+	var message=this.message;
+	var typeNum=0;
+	var type=[];
+	this.data=this.data.sort(sortBy('type'));
+	for(var i=0;i<this.data.length-1;i++){
+		if (this.data[i+1]['type']==this.data[i]['type']) {
+			this.message=this.message+"<br/>"+message;
+		}
+		else{
+			type[typeNum++]=this.data[i]['type'];
+			this.message=this.message+"<br/>{{type}}<br/>"+message;
+		}
+	}
+	type[typeNum++]=this.data[this.data.length-1]['type'];
+	for(var i=0;i<this.data.length;i++){
+		this.message=this.message.replace(/{{name}}/,this.data[i]['name']);//;.replace(/{{value}}/,this.data[i]['value']);
+	}
+	this.message="{{xAxis}}<br/>"+"{{type}}<br/>"+this.message;
+	for(var i=0;i<typeNum;i++){
+		this.message=this.message.replace(/{{type}}/,type[i]);
+	}
+	console.log(type)
 }
 
 
@@ -866,19 +919,37 @@ Line.prototype.draw=function () {
 	}
 	ctx.globalAlpha=0.75;
 	for(var i=0;i<this.data.length;i++){
-		for(var j=0;j<this.data[i]['value'].length;j++){
-			ctx.beginPath();
-			var map=(canvasHeight-70)*this.data[i]['value'][j]/this.max;
-			map=canvasHeight-60-map;
-			var nextMap=(canvasHeight-70)*this.data[i]['value'][j+1]/this.max;
-			nextMap=canvasHeight-60-nextMap;
-			ctx.moveTo(60 + (j +1) * distance,map);
-			ctx.lineTo(60+(j+2)*distance,nextMap);
-			ctx.strokeStyle=this.color[i];
-			ctx.stroke();
-			ctx.beginPath();
-			ctx.arc(60 + (j +1) * distance,map, 3 ,0, 2*Math.PI);
-			ctx.stroke()
+		if (this.data[i]['curve']) {
+			for(var j=0;j<this.data[i]['value'].length;j++){
+				ctx.beginPath();
+				var map=(canvasHeight-70)*this.data[i]['value'][j]/this.max;
+				map=canvasHeight-60-map;
+				var nextMap=(canvasHeight-70)*this.data[i]['value'][j+1]/this.max;
+				nextMap=canvasHeight-60-nextMap;
+				ctx.moveTo(60 + (j +1) * distance,map);
+				ctx.bezierCurveTo(60 + (j +1) * distance+16,map,60+(j+2)*distance-16,nextMap,60+(j+2)*distance,nextMap);
+				ctx.strokeStyle=this.color[i];
+				ctx.stroke();
+				ctx.beginPath();
+				ctx.arc(60 + (j +1) * distance,map, 3 ,0, 2*Math.PI);
+				ctx.stroke()
+			}
+		}
+		else{
+			for(var j=0;j<this.data[i]['value'].length;j++){
+				ctx.beginPath();
+				var map=(canvasHeight-70)*this.data[i]['value'][j]/this.max;
+				map=canvasHeight-60-map;
+				var nextMap=(canvasHeight-70)*this.data[i]['value'][j+1]/this.max;
+				nextMap=canvasHeight-60-nextMap;
+				ctx.moveTo(60 + (j +1) * distance,map);
+				ctx.lineTo(60+(j+2)*distance,nextMap);
+				ctx.strokeStyle=this.color[i];
+				ctx.stroke();
+				ctx.beginPath();
+				ctx.arc(60 + (j +1) * distance,map, 3 ,0, 2*Math.PI);
+				ctx.stroke()
+			}
 		}
 	}
 }

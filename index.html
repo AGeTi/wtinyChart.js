@@ -21,12 +21,12 @@
 			{value:[4,1,5,8,4,1]},
 			{value:[1,2,3,5,6,7]}*/
 
-				//{value:[100,30,20,45,19,34,78],name:'lxc'},
+				{value:[100,30,20,45,19,34,78],name:'lxc'},
 				{value:[88,23,87,33,100,23,56],name:'wzz'},
 				{value:[12,94,56,78,23,86,90],name:'wz'},
 				{value:[84,70,80,75,80,60,70],name:'zjl'}
 			],
-			message:"name:{{name}} /n  is   /nvalue:{{value}}"//npercent:{{percent}}"
+			message:"name:{{name}}  value:{{value}} "
 		}
 		var canvas=document.getElementById('radar');
 	 	var ctx=canvas.getContext('2d');
@@ -43,7 +43,7 @@
 				{value:80,name:'ss'},
 				{value:100,name:'wzddz'}
 			],
-			message:"name:{{name}} /n  is   /nvalue:{{value}}"//npercent:{{percent}}"
+			message:"name:{{name}} <br/> is   <br/>value:{{value}}"//npercent:{{percent}}"
 		}
 		var c=new NChart(ctx,'pie').config(options).draw();
 		console.log( c instanceof Radar);
@@ -60,7 +60,7 @@
 				{value:80,name:'ss'},
 				{value:100,name:'wzddz'}
 			],
-			message:"name:{{name}} /n  is   /nvalue:{{value}}"//npercent:{{percent}}"
+			message:"name:{{name}} <br/>  is   <br/>value:{{value}}"//npercent:{{percent}}"
 		}
 		var cx=new NChart(ctxx,'ring').config(options1).draw();
 		//console.log( cx instanceof Bar);
@@ -69,27 +69,27 @@
 		var ctxx=canvasx.getContext('2d');
 	 	var options1={
 			data:[
-				{type:'eat',value:[80,62,23,30,41,32],name:'wzz'},
-				{type:'eat',value:[120,32,43,80,51,82],name:'wzz'},
-				{type:'eat',value:[99,13,78,55,59,20],name:'lrzx'},
-				{type:'eat',value:[43,45,87,252,28,90],name:'fw'},
-				{type:'drink',value:[55,23,21,45,64,23],name:'xs'},
-				{type:'drink',value:[219,44,22,55,77,98],name:'ok'},
-				{type:'buy',value:[110,92,231,78,329,200],name:'wzz'},
-				{type:'buy',value:[11,92,231,78,39,20],name:'wzz'},
-				{type:'seal',value:[40,99,21,33,32,20],name:'wzz'}
+				{type:'eat',value:[43,45,87,252,28,90],name:'eat'},
+				{type:'drink',value:[55,23,21,45,64,23],name:'drink'},
+				{type:'buy',value:[110,92,231,78,329,200],name:'buy'},
+				{type:'eat',value:[80,62,23,30,41,32],name:'eat'},
+				{type:'eat',value:[120,32,43,80,51,82],name:'eat'},
+				{type:'eat',value:[99,13,78,55,59,20],name:'eat'},
+				{type:'drink',value:[219,44,22,55,77,98],name:'drink'},
+				{type:'buy',value:[11,92,231,78,39,20],name:'buy'},
+				{type:'seal',value:[40,99,21,33,32,20],name:'seal'}
 			],
 			xAxis:["1m","2m","3m","4m","5m","6m"],
 			yAxis:'T',
-			message:"name:{{name}} /n  is   /nvalue:{{value}}"//npercent:{{percent}}"
+			message:"name:{{name}}  is   value:{{value}}"//npercent:{{percent}}"
 		}
 		var cx1=new NChart(ctxx,'bar').config(options1).draw();
 		//console.log( cx1 instanceof Bar);
 		//////////
 		var options1={
 			data:[
-				{value:[243,13,564,134,97,139,233,47,88,43,197,245,841,32,775,123,666,235],name:'wzz'},
-				{value:[23,143,56,14,917,19,23,474,418,430,97,245,84,302,75,12,61,500],name:'lxc'},
+				{value:[243,13,564,134,97,139,233,47,88,43,197,245,841,32,775,123,666,235],name:'wzz',curve:false},
+				{value:[23,143,56,14,917,19,23,474,418,430,97,245,84,302,75,12,61,500],name:'lxc',curve:true},
 			//	{value:[123,90,562,124,17,139,243,74,48,480,970,45,834,302,95,612,361,700],name:'lxc'},
 			],	
 			name:'wzz',
