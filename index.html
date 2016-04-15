@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>	
+		
 		<script src="wtinychart.js"></script>
 	</head>
 	<body>
@@ -13,7 +14,7 @@
 		
 	</body>
 	<script type="text/javascript">
-
+	
 		var options2={
 	 		index:['javascript','css','html','python','nodejs','css3','html5'],
 			data:[
@@ -27,8 +28,8 @@
 		}
 		var canvas=document.getElementById('radar');
 	 	var ctx=canvas.getContext('2d');
-	 	var c=new NChart(ctx,'radar').config(options2).draw();
-		console.log( c instanceof Radar);
+	 	var c=wtChart.init(ctx,'radar').config(options2).draw();
+		
                		//////////////////
 	 	var canvas=document.getElementById('canvas');
 	 	var ctx=canvas.getContext('2d');
@@ -43,8 +44,8 @@
 			message:"name:{{name}} <br/> is   <br/>value:{{value}}",//npercent:{{percent}}"
 			title:"Pie Example"
 		}
-		var c=new NChart(ctx,'pie').config(options).draw();
-		console.log( c instanceof Radar);
+		var c=wtChart.init(ctx,'pie').config(options).draw();
+		
 		//////////////////////
 		var canvasx=document.getElementById('bar');
 		var ctxx=canvasx.getContext('2d');
@@ -61,7 +62,7 @@
 			message:"name:{{name}} <br/>  is   <br/>value:{{value}}",
 			title:"Ring Example"
 		}
-		var cx=new NChart(ctxx,'ring').config(options1).draw();
+		var cx=wtChart.init(ctxx,'ring').config(options1).draw();
 		//console.log( cx instanceof Bar);
 		///////////////////////
 		var canvasx=document.getElementById('barx');
@@ -83,8 +84,7 @@
 			message:"name:{{name}}  is   value:{{value}}",
 			title:"Bar Example"
 		}
-		var cx1=new NChart(ctxx,'bar').config(options1).draw();
-		//console.log( cx1 instanceof Bar);
+		var cx1= wtChart.init(ctxx,'bar').config(options1).draw();
 		//////////
 		var options1={
 			data:[
@@ -100,6 +100,6 @@
 		}
 		var canvasx=document.getElementById('line');
 		var ctxx=canvasx.getContext('2d');
-		var cx1=new NChart(ctxx,'line').config(options1).draw();
+		var cx1=wtChart.init(ctxx,'line').config(options1).draw();
 	</script>
 </html>	
