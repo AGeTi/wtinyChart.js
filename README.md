@@ -7,26 +7,30 @@
 ![](https://github.com/wonggigi/wtinyChart.js/blob/master/img/bar.png)
 
 <pre><code>
-var options1={
-	data:[
-		{type:'eat',value:[43,45,87,252,28,90],name:'wzzeat'},
-		{type:'drink',value:[55,23,21,45,64,23],name:'wzzdrink'},
-		{type:'buy',value:[110,292,231,78,329,200],name:'wzzbuy'},
-		{type:'eat',value:[80,62,23,30,41,32],name:'lxceat'},
-		{type:'eat',value:[120,32,43,80,51,82],name:'ngseat'},
-		{type:'eat',value:[99,13,78,55,59,20],name:'zsxeat'},
-		{type:'drink',value:[219,44,22,55,77,98],name:'zsxdrink'},
-		{type:'buy',value:[11,92,231,78,39,20],name:'lxcbuy'},
-		{type:'seal',value:[40,99,21,33,32,20],name:'ngseal'}
-	],
-	xAxis:["1m","2m","3m","4m","5m","6m"],
-	yAxis:'T',
-	message:"name:{{name}}  is   value:{{value}}",
-	title:"Bar Example"
-}
-var canvas=document.getElementById('bar');
-var ctx=canvasx.getContext('2d');
-wtChart.init(ctx,'bar').config(options).draw();
+`<!DOCTYPE html>
+<html>
+	<head>	
+		
+		<script src="wtinychartunmin.js"></script>
+	</head>
+	<body>
+		<canvas id="bar" width="550" height="400"></canvas>
+	</body>
+	<script type="text/javascript">
+		var canvas=document.getElementById('bar');
+		var ctx=canvas.getContext('2d');
+	 	var options={
+			data:[
+				{type:'speed',value:[43,45,87,252,28,90],name:'wong'},
+			],
+			xAxis:["100m","200m","300m","400m","500m","600m"],
+			yAxis:'m/s',
+			message:"name:{{name}}   speed:{{value}}m/s",
+			title:"Bar Example"
+		}
+		var wtc= wtChart.init(ctx,'bar').config(options).draw();
+	</script>
+</html>	`
 </code></pre>
 
 ###Pie
