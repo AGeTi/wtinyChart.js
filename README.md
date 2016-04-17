@@ -17,7 +17,7 @@ var options={
 		{value:80,name:'April'},
 		{value:100,name:'May'}
 		],
-	message:"{{name}}《br/》" weight:{{value}}kg",
+	message:"{{name}}&lt;br/&gt; weight:{{value}}kg",
 	title:"Pie Example"
 }
 var wtc=wtChart.init(ctx,'pie').config(options).draw();
@@ -38,7 +38,7 @@ var options={
 		{value:14,name:'May'},
 		{value:100,name:'June'}
 		],
-	message:"Month:{{name}} 《br/》height:{{value}}cm",
+	message:"Month:{{name}} &lt;br/&gt;height:{{value}}cm",
 	title:"Ring Example"
 }
 var wtc=wtChart.init(ctx,'ring').config(options).draw();
