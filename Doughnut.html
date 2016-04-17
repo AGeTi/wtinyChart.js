@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>	
+		
+		<script src="wtinychartunmin.js"></script>
+	</head>
+	<body>
+		<canvas id="canvas" width="350" height="350"></canvas>
+	</body>
+	<script type="text/javascript">
+		var canvas=document.getElementById('canvas');
+		var ctx=canvas.getContext('2d');
+	 	var options={
+			data:[
+				{value:55,name:'January'},
+				{value:60,name:'February'},
+				{value:20,name:'March'},
+				{value:80,name:'April'},
+				{value:14,name:'May'},
+				{value:100,name:'June'}
+			],
+			message:"Month:{{name}} <br/>height:{{value}}cm",
+			title:"Ring Example"
+		}
+		var cx=wtChart.init(ctx,'ring').config(options).draw();
+	</script>
+</html>	

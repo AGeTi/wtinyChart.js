@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>	
+		
+		<script src="wtinychartunmin.js"></script>
+	</head>
+	<body>
+		<canvas id="line" width="800" height="300"></canvas>
+	</body>
+	<script type="text/javascript">
+		var options={
+			data:[
+				{value:[243,13,564,134,97,139,233,47,88,43,197,245,841,32,775,123,666,235],name:'Jack',curve:false},
+				{value:[23,143,56,14,917,19,23,474,418,430,97,245,84,302,75,12,61,500],name:'Nick',curve:true},
+			],	
+			name:'wzz',
+			xAxis:["13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00","0:00","1:00","2:00","3:00","4:00","5:00","6:00"],
+			yAxis:" m/s",
+			message:"name:{{name}}  value:{{value}}",
+			title:"Line Example"
+		}
+		var canvas=document.getElementById('line');
+		var ctx=canvas.getContext('2d');
+		var wtc=wtChart.init(ctx,'line').config(options).draw();
+	</script>
+</html>	

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>	
+		
+		<script src="wtinychartunmin.js"></script>
+	</head>
+	<body>
+		<canvas id="radar" width="350" height="350"></canvas>	
+	</body>
+	<script type="text/javascript">
+	
+		var options={
+	 		index:['Javascript','CSS','HTML','Python','C++','PHP','Java'],
+			data:[
+				{value:[100,30,20,45,19,34,78],name:'Michaela'},
+				{value:[88,53,87,33,100,23,56],name:'Wong'},
+				{value:[12,94,56,78,23,86,90],name:'Jack'}
+			],
+			message:"name:{{name}}  value:{{value}} ",
+			title:"Radar Example"
+		}
+		var canvas=document.getElementById('radar');
+	 	var ctx=canvas.getContext('2d');
+	 	var wtc=wtChart.init(ctx,'radar').config(options).draw();
+	</script>
+</html>	

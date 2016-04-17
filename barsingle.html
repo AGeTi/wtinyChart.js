@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>	
+		
+		<script src="wtinychartunmin.js"></script>
+	</head>
+	<body>
+		<canvas id="bar" width="550" height="400"></canvas>
+	</body>
+	<script type="text/javascript">
+		var canvas=document.getElementById('bar');
+		var ctx=canvas.getContext('2d');
+	 	var options={
+			data:[
+				{type:'speed',value:[43,45,87,252,28,90],name:'wong'},
+			],
+			xAxis:["100m","200m","300m","400m","500m","600m"],
+			yAxis:'m/s',
+			message:"name:{{name}}   speed:{{value}}m/s",
+			title:"Bar Example"
+		}
+		var wtc= wtChart.init(ctx,'bar').config(options).draw();
+	
+	</script>
+</html>	

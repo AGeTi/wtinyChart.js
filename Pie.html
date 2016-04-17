@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>	
+		
+		<script src="wtinychartunmin.js"></script>
+	</head>
+	<body>
+		<canvas id="canvas" width="350" height="350"></canvas>
+	</body>
+	<script type="text/javascript">
+	
+	 	var canvas=document.getElementById('canvas');
+	 	var ctx=canvas.getContext('2d');
+		var options={
+			data:[
+				{value:55,name:'January'},
+				{value:60,name:'February'},
+				{value:20,name:'March'},
+				{value:80,name:'April'},
+				{value:100,name:'May'}
+			],
+			message:"{{name}}<br/> weight:{{value}}kg",
+			title:"Pie Example"
+		}
+		var wtc=wtChart.init(ctx,'pie').config(options).draw();
+	</script>
+</html>	
