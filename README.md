@@ -4,7 +4,7 @@
 ######=_=
 
 ###Pie
-![](https://github.com/wonggigi/wtinyChart.js/blob/master/img/pie.。png)
+![](https://github.com/wonggigi/wtinyChart.js/blob/master/img/pie.png)
 
 <pre><code>
 var canvas=document.getElementById('canvas');
@@ -24,7 +24,7 @@ var wtc=wtChart.init(ctx,'pie').config(options).draw();
 </code></pre>
 
 ###Doughnut
-![](https://github.com/wonggigi/wtinyChart.js/blob/master/img/ring。.png)
+![](https://github.com/wonggigi/wtinyChart.js/blob/master/img/ring.png)
 
 <pre><code>
 var canvas=document.getElementById('canvas');
@@ -45,7 +45,7 @@ var wtc=wtChart.init(ctx,'ring').config(options).draw();
 </code></pre>
 
 ###Radar
-![](https://github.com/wonggigi/wtinyChart.js/blob/master/img/radar.。png)
+![](https://github.com/wonggigi/wtinyChart.js/blob/master/img/radar.png)
 
 <pre><code>
 var options={
@@ -64,7 +64,7 @@ var wtc=wtChart.init(ctx,'radar').config(options).draw();
 </code></pre>
 
 ###Line
-![](https://github.com/wonggigi/wtinyChart.js/blob/master/img/line。.png)
+![](https://github.com/wonggigi/wtinyChart.js/blob/master/img/line.png)
 
 <pre><code>
 var options={
@@ -83,7 +83,7 @@ var wtc=wtChart.init(ctx,'line').config(options).draw();
 </code></pre>
 
 ###Bar 
-![](https://github.com/wonggigi/wtinyChart.js/blob/master/img/bar。.png)
+![](https://github.com/wonggigi/wtinyChart.js/blob/master/img/bar2.png)
 
 <pre><code>
 var canvas=document.getElementById('bar');
@@ -101,7 +101,7 @@ var canvas=document.getElementById('bar');
 </code></pre>
 
 ###Bar Stack
-![](https://github.com/wonggigi/wtinyChart.js/blob/master/img/bar。.png)
+![](https://github.com/wonggigi/wtinyChart.js/blob/master/img/bar.png)
 
 <pre><code>
 var canvas=document.getElementById('bar');
