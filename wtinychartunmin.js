@@ -55,15 +55,16 @@ var wtChart = (function() {
 			}
 		}
 	}
-	var displayMessage=function (display) {
+	var displayMessage = function(display) {
 		display.style.padding = "10px";
 		display.style.color = "white";
 		display.style.backgroundColor = "rgba(0,0,0,0.45)";
 		display.style.display = "none";
-		display.style.borderRadius="10px";
-		display.style.fontFamily="Helvetica, sans-serif";
+		display.style.borderRadius = "10px";
+		display.style.fontFamily = "Helvetica, sans-serif";
 		document.body.appendChild(display);
 	}
+
 	function Element(context) {
 		this.context = context;
 		this.paddingTop = 60;
@@ -218,8 +219,8 @@ var wtChart = (function() {
 					display.style.left = event.pageX + 20 + "px";
 					display.style.top = event.pageY + 20 + "px";
 					var value = name.replace(/{{value}}/, this.data[j].value);
-					var colorDiv="<div style='height:14px;width:14px;background-color:"+this.color[j]+"'></div>"
-					var message = this.message.replace(/{{name}}/, this.data[j].name).replace(/{{value}}/, this.data[j].value).replace(/{{color}}/,colorDiv);
+					var colorDiv = "<div style='height:14px;width:14px;background-color:" + this.color[j] + "'></div>"
+					var message = this.message.replace(/{{name}}/, this.data[j].name).replace(/{{value}}/, this.data[j].value).replace(/{{color}}/, colorDiv);
 					display.innerHTML = message;
 				}
 			} else {
@@ -311,7 +312,7 @@ var wtChart = (function() {
 			this.message = this.message.replace(/ \s+/g, '')
 			this.mge = this.message.split('/n');
 		}
-		this.message="{{color}}"+this.message;
+		this.message = "{{color}}" + this.message;
 	}
 
 	function Radar(context, type) {
@@ -507,8 +508,8 @@ var wtChart = (function() {
 			display.style.top = event.pageY + 20 + "px";
 			var message = this.message.replace(/{{index}}/, this.index[index]);
 			for (var i = 0; i < this.data.length; i++) {
-				var colorDiv="<span style='display:inline-block;height:14px;width:14px;background-color:"+this.color[i]+"'></span>"
-				message = message.replace(/{{name}}/, this.data[i]['name']).replace(/{{value}}/, this.data[i]['value'][index]).replace(/{{color}}/,colorDiv);
+				var colorDiv = "<span style='display:inline-block;height:14px;width:14px;background-color:" + this.color[i] + "'></span>"
+				message = message.replace(/{{name}}/, this.data[i]['name']).replace(/{{value}}/, this.data[i]['value'][index]).replace(/{{color}}/, colorDiv);
 			}
 			display.innerHTML = message;
 		}.bind(this));
@@ -590,9 +591,9 @@ var wtChart = (function() {
 	Radar.prototype.configMessage = function(argument) {
 		var message = this.message
 		for (var i = 0; i < this.data.length - 1; i++) {
-			this.message =this.message + "<br/>" +"{{color}}"+  message;
+			this.message = this.message + "<br/>" + "{{color}}" + message;
 		}
-		this.message = "{{index}}<br/>" + "{{color}}"+this.message;
+		this.message = "{{index}}<br/>" + "{{color}}" + this.message;
 	}
 
 	function Bar(context, type) {
@@ -638,7 +639,7 @@ var wtChart = (function() {
 				ctx.lineTo(this.paddingLeft + (i + 1) * distance, canvasHeight - this.paddingBottom);
 				ctx.closePath();
 				if (ctx.isPointInPath(pos.x, pos.y)) {
-					var j = i;
+					var select= i;
 					ctx.moveTo(this.paddingLeft + (j) * distance, canvasHeight - this.paddingBottom);
 					ctx.lineTo(this.paddingLeft + (j) * distance, this.paddingTop);
 					ctx.lineTo(this.paddingLeft + (j + 1) * distance, this.paddingTop);
@@ -646,16 +647,7 @@ var wtChart = (function() {
 					ctx.closePath();
 					ctx.fillStyle = "black"
 					ctx.fill();
-					/*dispaly message*/
-					display.style.display = "block";
-					display.style.position = "absolute";
-					display.style.left = event.pageX + 20 + "px";
-					display.style.top = event.pageY + 20 + "px";
-					var message = this.message.replace(/{{xAxis}}/, this.xAxis[j]);
-					for (var x = 0; x < this.data.length; x++) {
-						message = message.replace(/{{value}}/, this.data[x]['value'][j]);
-					}
-					display.innerHTML = message;
+
 					break;
 				} else {
 					display.style.display = "none";
@@ -706,6 +698,7 @@ var wtChart = (function() {
 			var barWidth = (distance - 16) / this.group.length;
 			var barcount = 0;
 			var colorcount = 0;
+		
 			for (var item in this.group) {
 				barcount++;
 				var levels = this.group[item].length / this.xAxis.length;
@@ -726,6 +719,26 @@ var wtChart = (function() {
 						ctx.closePath()
 						ctx.stroke();
 						ctx.fillStyle = this.color[i];
+
+						/*dispaly message*/
+						display.style.display = "block";
+						display.style.position = "absolute";
+						display.style.left = event.pageX + 20 + "px";
+						display.style.top = event.pageY + 20 + "px";
+						var message = this.message.replace(/{{xAxis}}/, this.xAxis[select]);
+					
+						for (var x = 0; x < this.data.length; x++) {
+							message = message.replace(/{{value}}/, this.data[x]['value'][select]);
+						}
+						//colorNum++;
+						//if (colorNum<this.data.length) {
+							//console.log(this.color[i]);
+						//	var colorDiv = "<span style='display:inline-block;height:14px;width:14px;background-color:" + this.color[i] + "'></span>";
+						//	message=message.replace(/{{color}}/,colorDiv);
+							//console.log(message)
+						//}
+						
+						display.innerHTML = message;
 						ctx.fill();
 					}
 				}
@@ -826,12 +839,13 @@ var wtChart = (function() {
 		this.data = this.data.sort(sortBy('type'));
 		for (var i = 0; i < this.data.length - 1; i++) {
 			if (this.data[i + 1]['type'] == this.data[i]['type']) {
-				this.message = this.message + "<br/>" + message;
+				this.message = this.message + "<br/>{{color}}" + message;
 			} else {
 				type[typeNum++] = this.data[i]['type'];
-				this.message = this.message + "<br/>{{type}}<br/>" + message;
+				this.message = this.message + "<br/>{{type}}<br/>{{color}}" + message;
 			}
 		}
+		this.message = "{{color}}" + this.message;
 		type[typeNum++] = this.data[this.data.length - 1]['type'];
 		for (var i = 0; i < this.data.length; i++) {
 			this.message = this.message.replace(/{{name}}/, this.data[i]['name']); //;.replace(/{{value}}/,this.data[i]['value']);
@@ -992,8 +1006,10 @@ var wtChart = (function() {
 				if (this.data[i]['curve']) {
 					for (var j = 0; j < this.data[i]['value'].length; j++) {
 						var select;
+						//console.log(j)
 						if (pos.x > 60 + (j) * distance && pos.x < 60 + (j + 1) * distance) {
 							select = j;
+							//console.log(select)
 						}
 						if (pos.x > 60) {
 							ctx.beginPath();
@@ -1018,6 +1034,17 @@ var wtChart = (function() {
 				} else {
 					for (var j = 0; j < this.data[i]['value'].length; j++) {
 						ctx.beginPath();
+						var select;
+						if (pos.x > 60 + (j) * distance && pos.x < 60 + (j + 1) * distance) {
+							select = j;
+						}
+						if (pos.x > 60) {
+							ctx.beginPath();
+							ctx.moveTo(60 + (select + 1) * distance, canvasHeight - 60);
+							ctx.lineTo(60 + (select + 1) * distance, this.paddingTop);
+							ctx.strokeStyle = "black";
+							ctx.stroke();
+						}
 						var map = (canvasHeight - this.paddingBottom - this.paddingTop) * this.data[i]['value'][j] / this.max;
 						map = canvasHeight - 60 - map;
 						var nextMap = (canvasHeight - this.paddingBottom - this.paddingTop) * this.data[i]['value'][j + 1] / this.max;
@@ -1038,9 +1065,10 @@ var wtChart = (function() {
 			display.style.left = event.pageX + 20 + "px";
 			display.style.top = event.pageY + 20 + "px";
 			var message = this.message;
+
 			for (var i = 0; i < this.data.length; i++) {
-				var colorDiv="<span style='display:inline-block;height:14px;width:14px;background-color:"+this.color[i]+"'></span>"
-				message = message.replace(/{{value}}/, this.data[i]['value'][select]).replace(/{{color}}/,colorDiv);
+				var colorDiv = "<span style='display:inline-block;height:14px;width:14px;background-color:" + this.color[i] + "'></span>"
+				message = message.replace(/{{value}}/, this.data[i]['value'][select]).replace(/{{color}}/, colorDiv);
 			}
 			if (!(pos.x > this.paddingLeft && pos.x < canvasWidth - this.paddingRight && pos.y < canvasHeight - this.paddingBottom && pos.y > this.paddingTop)) {
 				display.style.display = "none";
@@ -1051,12 +1079,12 @@ var wtChart = (function() {
 	Line.prototype.configMessage = function(argument) {
 		var message = this.message;
 		for (var i = 0; i < this.data.length - 1; i++) {
-			this.message = this.message + "<br/>" + "{{color}}"+message;
+			this.message = this.message + "<br/>" + "{{color}}" + message;
 		}
 		for (var i = 0; i < this.data.length; i++) {
 			this.message = this.message.replace(/{{name}}/, this.data[i]['name']);
 		}
-		this.message="{{color}}"+this.message;
+		this.message = "{{color}}" + this.message;
 	}
 	return {
 		init: init
