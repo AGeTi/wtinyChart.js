@@ -129,15 +129,28 @@ var wtChart = (function() {
 		/*line config*/
 		if (this.data && this.type == 'line') {
 			this.max = 0;
+			this.min=99999;
 			for (var i = 0; i < this.data.length; i++) {
 				for (var j = 0; j < this.data[i]['value'].length; j++) {
 					this.max = this.max > this.data[i]['value'][j] ? this.max : this.data[i]['value'][j];
 				}
 			}
-			this.distance = 5;
-			while (this.distance * 6 < this.max) {
-				this.distance = this.distance + 5;
+			for (var i = 0; i < this.data.length; i++) {
+				for (var j = 0; j < this.data[i]['value'].length-1; j++) {
+					this.min = this.min > this.data[i]['value'][j] ?  this.data[i]['value'][j] : this.min;	
+				}
 			}
+			var maxmin=this.max-this.min;
+			if (maxmin<10) {
+				this.distance=parseFloat(maxmin/6);
+				console.log(this.distance)
+			}
+			else{
+				this.distance = 5;
+				while (this.distance * 6 < this.max) {
+					this.distance = this.distance + 5;
+				}
+			}	
 		}
 		this.configMessage();
 		return this;
@@ -888,7 +901,9 @@ var wtChart = (function() {
 			ctx.lineWidth = 0.5;
 			ctx.moveTo(this.paddingLeft - 5, this.paddingTop + i * distance);
 			ctx.textAlign = "right";
-			var value = this.distance * (6 - i);
+			var value =parseFloat(this.min)+parseFloat(this.distance * (6 - i));
+			console.log(value)
+			value=value.toFixed(2);
 			ctx.fillText(value + this.yAxis, 55, this.paddingTop + 5 + (i) * distance)
 			ctx.lineTo(this.paddingLeft, this.paddingTop + i * distance);
 			ctx.stroke()
@@ -914,6 +929,8 @@ var wtChart = (function() {
 		}
 		ctx.globalAlpha = 0.75;
 		for (var i = 0; i < this.data.length; i++) {
+			var k= (canvasHeight - this.paddingBottom - this.paddingTop)/(parseFloat(this.min)-parseFloat(this.max));
+			var b=(canvasHeight-this.paddingBottom)-k*(parseFloat(this.min));
 			if (this.data[i]['curve']) {
 				for (var j = 0; j < this.data[i]['value'].length; j++) {
 					ctx.beginPath();
@@ -932,10 +949,11 @@ var wtChart = (function() {
 			} else {
 				for (var j = 0; j < this.data[i]['value'].length; j++) {
 					ctx.beginPath();
-					var map = (canvasHeight - this.paddingBottom - this.paddingTop) * this.data[i]['value'][j] / this.max;
-					map = canvasHeight - this.paddingBottom - map;
-					var nextMap = (canvasHeight - this.paddingBottom - this.paddingTop) * this.data[i]['value'][j + 1] / this.max;
-					nextMap = canvasHeight - this.paddingBottom - nextMap;
+					var map = (k) * this.data[i]['value'][j] +b;
+					console.log(map)
+				//	map = canvasHeight - this.paddingBottom - map;
+					var nextMap =k* this.data[i]['value'][j + 1] +b;
+				//	nextMap = canvasHeight - this.paddingBottom - nextMap;
 					ctx.moveTo(this.paddingLeft + (j + 1) * distance, map);
 					ctx.lineTo(this.paddingBottom + (j + 2) * distance, nextMap);
 					ctx.strokeStyle = this.color[i];
@@ -977,7 +995,9 @@ var wtChart = (function() {
 				ctx.lineWidth = 0.5;
 				ctx.moveTo(55, this.paddingTop + i * distance);
 				ctx.textAlign = "right";
-				var value = this.distance * (6 - i);
+				var value =parseFloat(this.min)+parseFloat(this.distance * (6 - i));
+			//console.log(value)
+			value=value.toFixed(2);
 				ctx.fillText(value + this.yAxis, 55, this.paddingTop + 5 + (i) * distance)
 				ctx.lineTo(60, this.paddingTop + i * distance);
 				ctx.stroke()
@@ -1003,6 +1023,8 @@ var wtChart = (function() {
 			}
 			ctx.globalAlpha = 0.75;
 			for (var i = 0; i < this.data.length; i++) {
+				var k= (canvasHeight - this.paddingBottom - this.paddingTop)/(parseFloat(this.min)-parseFloat(this.max));
+				var b=(canvasHeight-this.paddingBottom)-k*(parseFloat(this.min));
 				if (this.data[i]['curve']) {
 					for (var j = 0; j < this.data[i]['value'].length; j++) {
 						var select;
@@ -1045,10 +1067,11 @@ var wtChart = (function() {
 							ctx.strokeStyle = "black";
 							ctx.stroke();
 						}
-						var map = (canvasHeight - this.paddingBottom - this.paddingTop) * this.data[i]['value'][j] / this.max;
-						map = canvasHeight - 60 - map;
-						var nextMap = (canvasHeight - this.paddingBottom - this.paddingTop) * this.data[i]['value'][j + 1] / this.max;
-						nextMap = canvasHeight - 60 - nextMap;
+						var map = (k) * this.data[i]['value'][j] +b;
+				//	console.log(map)
+				//	map = canvasHeight - this.paddingBottom - map;
+					var nextMap =k* this.data[i]['value'][j + 1] +b;
+				//	nextMap = canvasHeight - this.paddingBottom - nextMap;
 						ctx.moveTo(60 + (j + 1) * distance, map);
 						ctx.lineTo(60 + (j + 2) * distance, nextMap);
 						ctx.strokeStyle = this.color[i];
