@@ -1,4 +1,5 @@
 var wtChart = (function() {
+	var display = document.createElement('div');
 	var init = function(context, type) {
 		switch (type) {
 			case 'pie':
@@ -143,7 +144,7 @@ var wtChart = (function() {
 			var maxmin=this.max-this.min;
 			if (maxmin<10) {
 				this.distance=parseFloat(maxmin/6);
-				console.log(this.distance)
+		//		console.log(this.distance)
 			}
 			else{
 				this.distance = 5;
@@ -169,7 +170,6 @@ var wtChart = (function() {
 		var nowdeg = -Math.PI / 2;
 		var circleCenter = this.circleCenter;
 		var radius = this.radius;
-		var display = document.createElement('div');
 		var canvasHeight = canvas.offsetHeight;
 		var canvasWidth = canvas.offsetWidth;
 		displayMessage(display);
@@ -411,7 +411,7 @@ var wtChart = (function() {
 		return this;
 	}
 	Radar.prototype.addEvent = function(canvas, ctx) {
-		var display = document.createElement('div');
+
 		displayMessage(display);
 		canvas.addEventListener('mousemove', function(event) {
 			ctx.clearRect(0, 0, 9999, 9999);
@@ -618,7 +618,6 @@ var wtChart = (function() {
 	Bar.prototype = inherit(Element.prototype);
 	Bar.constructor = Bar;
 	Bar.prototype.addEvent = function(canvas, ctx) {
-		var display = document.createElement('div');
 		displayMessage(display);
 		canvas.addEventListener('mousemove', function(event) {
 			var pos = getEventPosition(event);
@@ -882,6 +881,7 @@ var wtChart = (function() {
 		var canvas = ctx.canvas;
 		var canvasHeight = canvas.offsetHeight;
 		var canvasWidth = canvas.offsetWidth;
+		ctx.clearRect(0, 0, 99999, 99999);
 		ctx.textAlign = "center";
 		ctx.globalAlpha = 0.6;
 		ctx.fillText(this.title, canvasWidth / 2, this.paddingTop / 2);
@@ -902,7 +902,7 @@ var wtChart = (function() {
 			ctx.moveTo(this.paddingLeft - 5, this.paddingTop + i * distance);
 			ctx.textAlign = "right";
 			var value =parseFloat(this.min)+parseFloat(this.distance * (6 - i));
-			console.log(value)
+		//	console.log(value)
 			value=value.toFixed(2);
 			ctx.fillText(value + this.yAxis, 55, this.paddingTop + 5 + (i) * distance)
 			ctx.lineTo(this.paddingLeft, this.paddingTop + i * distance);
@@ -950,7 +950,7 @@ var wtChart = (function() {
 				for (var j = 0; j < this.data[i]['value'].length; j++) {
 					ctx.beginPath();
 					var map = (k) * this.data[i]['value'][j] +b;
-					console.log(map)
+				//	console.log(map)
 				//	map = canvasHeight - this.paddingBottom - map;
 					var nextMap =k* this.data[i]['value'][j + 1] +b;
 				//	nextMap = canvasHeight - this.paddingBottom - nextMap;
@@ -967,7 +967,7 @@ var wtChart = (function() {
 		this.addEvent(canvas, ctx);
 	}
 	Line.prototype.addEvent = function(canvas, ctx) {
-		var display = document.createElement('div');
+		
 		displayMessage(display);
 		canvas.addEventListener('mousemove', function(event) {
 			var pos = getEventPosition(event);
